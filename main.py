@@ -4,4 +4,7 @@ URL = "https://www.imdb.com/search/title/?title_type=feature&num_votes=25000,&so
 
 parser = IMDBParser(URL)
 
-print(parser.parse())
+movies = parser.parse()
+
+for movie in movies:
+    print(movie)
