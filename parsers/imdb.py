@@ -13,13 +13,14 @@ class IMDBParser:
         req = urllib.request.urlopen(self.url)
         html = req.read()
         soup = BeautifulSoup(html, "html.parser")
-        movies = soup.find_all("h3", class_="lister-item-header")
+        movies = soup.find_all("div", class_="lister-item")
 
         result = []
         for i in movies:
             rank = int(i.find("span", class_="lister-item-index").get_text(strip=True).strip("."))
-            title = i.find("a").get_text(strip=True)
+            title = i.find("h3").find("a").get_text(strip=True)
             year = int(i.find("span", class_="lister-item-year").get_text(strip=True).strip("()"))
-            result.append(Movie(rank, title, year))
+            rating = float(i.find("div", class_="ratings-imdb-rating").get_text(strip=True))
+            result.append(Movie(rank, title, year, rating))
 
         return result
