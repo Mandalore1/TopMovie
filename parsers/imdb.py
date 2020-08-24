@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
-import urllib.request
 from parsers.movieparser import MovieParser
-from movie.movie import Movie
 
 
 class IMDBParser(MovieParser):
