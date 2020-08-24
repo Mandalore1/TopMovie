@@ -7,4 +7,4 @@ parser = IMDBParser(URL)
 movies = parser.parse()
 
 for movie in movies:
-    print(movie)
+    print(movie, "\n")

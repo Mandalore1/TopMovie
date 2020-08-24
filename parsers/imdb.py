@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from parsers.movieparser import MovieParser
+import urllib.parse
 
 
 class IMDBParser(MovieParser):
@@ -20,3 +21,7 @@ class IMDBParser(MovieParser):
 
     def parse_rating(self, movie):
         return float(movie.find("div", class_="ratings-imdb-rating").get_text(strip=True))
+
+    def parse_url(self, movie):
+        href = movie.find("h3").find("a").get("href")
+        return urllib.parse.urljoin("https://www.imdb.com/", href)

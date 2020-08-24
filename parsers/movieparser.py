@@ -24,7 +24,8 @@ class MovieParser:
             title = self.parse_title(i)
             year = self.parse_year(i)
             rating = self.parse_rating(i)
-            result.append(Movie(rank, title, year, rating))
+            url = self.parse_url(i)
+            result.append(Movie(rank, title, year, rating, url))
 
         return result
 
@@ -46,4 +47,8 @@ class MovieParser:
 
     def parse_rating(self, movie):
         """Return parsed rating"""
+        raise NotImplementedError
+
+    def parse_url(self, movie):
+        """Return parsed url"""
         raise NotImplementedError
