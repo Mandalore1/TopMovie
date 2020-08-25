@@ -15,10 +15,7 @@ class IMDBParser(MovieParser):
         return movie.find("h3").find("a").get_text(strip=True)
 
     def parse_year(self, movie):
-        result = movie.find("span", class_="lister-item-year").get_text(strip=True)
-        # Remove all non-digits
-        result = "".join([i for i in result if i.isdigit()])
-        return int(result)
+        return movie.find("span", class_="lister-item-year").get_text(strip=True)
 
     def parse_rating(self, movie):
         return float(movie.find("div", class_="ratings-imdb-rating").get_text(strip=True))
@@ -37,7 +34,7 @@ class IMDBDetailParser(MovieDetailParser):
         )[0]
 
     def parse_year(self, soup):
-        return int(soup.find(id="titleYear").find("a").get_text(strip=True))
+        return soup.find(id="titleYear").find("a").get_text(strip=True)
 
     def parse_rating(self, soup):
         return float(soup.find("span", itemprop="ratingValue").get_text(strip=True).replace(",", "."))
