@@ -11,9 +11,6 @@ class IMDBParser(MovieParser):
         soup = super().get_soup()
         return soup.find_all("div", class_="lister-item")
 
-    def parse_rank(self, movie):
-        return int(movie.find("span", class_="lister-item-index").get_text(strip=True).strip("."))
-
     def parse_title(self, movie):
         return movie.find("h3").find("a").get_text(strip=True)
 
@@ -33,9 +30,6 @@ class IMDBParser(MovieParser):
 
 class IMDBDetailParser(MovieDetailParser):
     """Parses https://www.imdb.com/title/"""
-
-    def parse_rank(self, soup):
-        return None
 
     def parse_title(self, soup):
         return list(

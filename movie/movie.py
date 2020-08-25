@@ -13,6 +13,7 @@ class Movie:
 
 
 class DetailedMovie(Movie):
+    """Detailed movie class. Rank can be None"""
     def __init__(self, movie: Movie, details: dict):
         super().__init__(movie.rank, movie.title, movie.year, movie.rating, movie.url)
         self.details = details

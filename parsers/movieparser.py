@@ -17,9 +17,8 @@ class MovieParser:
         soup = BeautifulSoup(html, "html.parser")
         return soup
 
-    def get_movie(self, movie_html):
+    def get_movie(self, movie_html, rank):
         """Return Movie"""
-        rank = self.parse_rank(movie_html)
         title = self.parse_title(movie_html)
         year = self.parse_year(movie_html)
         rating = self.parse_rating(movie_html)
@@ -29,17 +28,13 @@ class MovieParser:
     def parse(self):
         """Return Movies list"""
         result = []
-        for movie_html in self.parse_movies():
-            result.append(self.get_movie(movie_html))
+        for rank, movie_html in enumerate(self.parse_movies(), start=1):
+            result.append(self.get_movie(movie_html, rank))
 
         return result
 
     def parse_movies(self):
         """Return parsed movies"""
-        raise NotImplementedError
-
-    def parse_rank(self, movie):
-        """Return parsed rank"""
         raise NotImplementedError
 
     def parse_title(self, movie):
@@ -61,9 +56,9 @@ class MovieParser:
 
 class MovieDetailParser(MovieParser):
     """Base class for detailed movie parsers"""
-    def get_movie(self, soup):
+    def get_movie(self, soup, rank=None):
         """Return DetailedMovie"""
-        movie = super().get_movie(soup)
+        movie = super().get_movie(soup, rank)
         details = self.parse_additional_info(soup)
         return DetailedMovie(movie, details)
 
