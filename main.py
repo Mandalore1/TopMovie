@@ -1,6 +1,6 @@
 """Main file used for debugging"""
 from parsers.imdb import IMDBParser, IMDBDetailParser
-from parsers.kinopoisk import KinopoiskParser
+from parsers.kinopoisk import KinopoiskParser, KinopoiskDetailParser
 
 LIST_URL_IMDB = "https://www.imdb.com/search/title/?sort=user_rating,desc&title_type=feature&num_votes=25000,"
 LIST_URL_KINOPOISK = "https://www.kinopoisk.ru/top/navigator/m_act[years]/1900%3A2020/order/rating/"
@@ -45,7 +45,7 @@ parsers = {
     (1, 1): IMDBParser(LIST_URL_IMDB),
     (1, 2): IMDBDetailParser(DETAIL_URL_IMDB),
     (2, 1): KinopoiskParser(LIST_URL_KINOPOISK),
-    # (2, 2): KinopoiskDetailParser(DETAIL_URL_KINOPOISK),
+    (2, 2): KinopoiskDetailParser(DETAIL_URL_KINOPOISK),
 }
 
 parser = parsers[tuple(choices)]
