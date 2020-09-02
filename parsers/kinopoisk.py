@@ -31,6 +31,7 @@ class KinopoiskDetailParser(MovieDetailParser):
 
     @staticmethod
     def _search_link_href_startswith(soup, strings):
+        """Return first <a> whose href starts with given strings"""
         links = soup.select("a")
         result = None
         for link in links:
@@ -41,9 +42,11 @@ class KinopoiskDetailParser(MovieDetailParser):
         return result
 
     def parse_title(self, soup):
+        # Title is in h1
         return soup.select_one("h1 > span").get_text(strip=True)
 
     def parse_year(self, soup):
+        # Year href starts with /lists/navigator/2 or lists/navigator/1
         return self._search_link_href_startswith(soup, ("/lists/navigator/2", "lists/navigator/1"))
 
     def parse_rating(self, soup):
@@ -59,6 +62,7 @@ class KinopoiskDetailParser(MovieDetailParser):
                                        .select_one(".styles_ratingContainer__24Wyy span.styles_count__3hSWL")
                                        .get_text(strip=True).replace(",", "").replace(" ", ""))
 
+        # Details are in div.styles_row__2ee6F
         details_html = soup.select("div.styles_row__2ee6F")
 
         def search_detail(string, details_html):

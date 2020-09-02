@@ -5,7 +5,10 @@ from movie.movie import Movie, DetailedMovie
 
 
 class MovieParser:
-    """Base class for movie parsers"""
+    """
+    Base class for movie parsers
+    Parsers should implement parsing movie list tags and all info from that tags
+    """
 
     def __init__(self, url):
         self.url = url
@@ -27,6 +30,7 @@ class MovieParser:
 
     def parse(self):
         """Return Movies list"""
+        # First we parse all tags that contain movie info and then convert them to Movie objects
         result = []
         for rank, movie_html in enumerate(self.parse_movies(), start=1):
             result.append(self.get_movie(movie_html, rank))
@@ -34,7 +38,7 @@ class MovieParser:
         return result
 
     def parse_movies(self):
-        """Return parsed movies"""
+        """Return tags that contain movie info"""
         raise NotImplementedError
 
     def parse_title(self, movie):
@@ -67,7 +71,8 @@ class MovieDetailParser(MovieParser):
         return self.get_movie(self.parse_movies())
 
     def parse_movies(self):
-        """Return soup"""
+        """Return html that contain info about movie"""
+        # Because all info about movie is on page we return soup
         return self.get_soup()
 
     def parse_additional_info(self, soup):

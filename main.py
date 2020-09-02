@@ -9,11 +9,17 @@ DETAIL_URL_KINOPOISK = "https://www.kinopoisk.ru/film/535341/?from_block=main_re
 
 
 def get_choice(message, choices, options):
+    """
+    Get user choice from given choices
+    choices is a list of user choices
+    options is a tuple of int that contain possible choices
+    """
     print(message)
     while True:
         try:
             choice = int(input())
         except ValueError:
+            # if user entered non-digits
             print(f"Enter your choice from {options}")
             continue
 
@@ -21,6 +27,7 @@ def get_choice(message, choices, options):
             choices.append(choice)
             break
         else:
+            # if user entered number not from options
             print(f"Enter your choice from {options}")
 
 
