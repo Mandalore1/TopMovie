@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from parsers.movieparser import MovieParser, MovieDetailParser
 import urllib.parse
+import re
 
 
 class KinopoiskParser(MovieParser):
@@ -16,14 +17,15 @@ class KinopoiskParser(MovieParser):
         return movie.select_one("div.name >a").get_text(strip=True)
 
     def parse_year(self, movie):
-        return list(movie.select_one("div.name >span").stripped_strings)[0]
+        return re.search(r"\([1, 2].*\)",
+                         list(movie.select_one("div.name >span").stripped_strings)[0]).group(0)
 
     def parse_rating(self, movie):
         return float(list(movie.select_one("div.numVote > span").stripped_strings)[0])
 
     def parse_url(self, movie):
         href = movie.select_one("div.name >a")["href"]
-        return urllib.parse.urljoin("https://www.imdb.com/", href)
+        return urllib.parse.urljoin("https://www.kinopoisk.ru/", href)
 
 
 class KinopoiskDetailParser(MovieDetailParser):
