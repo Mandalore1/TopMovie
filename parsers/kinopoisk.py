@@ -17,6 +17,7 @@ class KinopoiskParser(MovieParser):
         return movie.select_one("div.name >a").get_text(strip=True)
 
     def parse_year(self, movie):
+        # Search string like (1999) or (2020)
         return re.search(r"\([1, 2].*\)",
                          list(movie.select_one("div.name >span").stripped_strings)[0]).group(0)
 

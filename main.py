@@ -34,6 +34,7 @@ def get_choice(message, choices, options):
 
 
 def get_website_id_from_database(website, cursor):
+    """Get website id by given string name"""
     cursor.execute(f"SELECT id FROM Websites WHERE name = '{website}'")
     website_id = cursor.fetchone()
     website_id = website_id[0]
@@ -41,6 +42,7 @@ def get_website_id_from_database(website, cursor):
 
 
 def insert_movies_to_database(movies, website):
+    """First delete old database records then insert new ones"""
     connection = sqlite3.connect("db.sqlite3")
     cursor = connection.cursor()
 
@@ -82,7 +84,8 @@ def print_top_movies(parser, website, from_db=True):
     for movie in movies:
         print(movie, "\n")
 
-    insert_movies_to_database(movies, website)
+    if not from_db:
+        insert_movies_to_database(movies, website)
 
 
 def print_detailed_movie(parser):
