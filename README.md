@@ -3,6 +3,7 @@ Simple movie parser. Parses from https://www.imdb.com/ and https://www.kinopoisk
 
 ## Used technologies
 BeautifulSoup
+
 SQLite
 
 ## Installation
